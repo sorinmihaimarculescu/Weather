@@ -1,0 +1,261 @@
+import React, { useState } from 'react'
+import './weather.css'
+
+const kelvinToCelsius = (kelvin = 272.15)=>{ 
+  return (kelvin - 272.15).toFixed(1)
+}
+
+const celsiusToFahrenheit = (celsius = 0) => { 
+  return ((celsius * 9/5) + 32).toFixed(1); 
+}
+
+const WeatherDataForFiveDays = (props)=> {
+
+  const dataWeatherList = props.dataSetForFiveDays?.list || []; 
+  const dataWeather = props.dataSetForFiveDays || []; 
+  
+  const [dayOneShow, setDayOneShow] = useState(false); 
+  const [dayTwoShow, setDayTwoShow] = useState(false); 
+  const [dayThreeShow, setDayThreeShow] = useState(false); 
+  const [dayFourShow, setDayFourShow] = useState(false); 
+  const [dayFiveShow, setDayFiveShow] = useState(false); 
+  const [daySixShow, setDaySixShow] = useState(false); 
+
+  let groupByDay = {};
+  
+  dataWeatherList.forEach((value)=>{ 
+
+    const day = value['dt_txt'].split(' ')[0].split('-')[2]; 
+
+    if(!groupByDay[day]) { 
+      groupByDay[day] = [];
+    } 
+    
+    groupByDay[day].push(value)
+  }) 
+  
+  const valuePerDay = Object.values(groupByDay) 
+
+  const dayOne = valuePerDay[0];
+  const dayTwo = valuePerDay[1]; 
+  const dayThree = valuePerDay[2]; 
+  const dayFour = valuePerDay[3]; 
+  const dayFive = valuePerDay[4];
+  const daySix = valuePerDay[5];
+
+  let dateToShow = [];
+
+  valuePerDay.forEach((item)=>{ 
+    item.forEach((value)=>{ 
+     const {main, wind, dt_txt} = value
+      dateToShow.push(dt_txt.split(' ')[0].split('-')[2])
+    })
+  })
+  let uniqueValue = [...new Set(dateToShow)]; 
+  return (
+    <>
+       <div> 
+        <button onClick={()=> setDayOneShow(!dayOneShow)}>{uniqueValue[0]}</button>
+        <button onClick={()=> setDayTwoShow(!dayTwoShow)}>{uniqueValue[1]}</button>
+        <button onClick={()=> setDayThreeShow(!dayThreeShow)}>{uniqueValue[2]}</button>
+        <button onClick={()=> setDayFourShow(!dayFourShow)}>{uniqueValue[3]}</button>
+        <button onClick={()=> setDayFiveShow(!dayFiveShow)}>{uniqueValue[4]}</button>
+        <button onClick={()=> setDaySixShow(!daySixShow)}>{uniqueValue[5]}</button>
+      </div> 
+      <div className='group-by-days'> 
+
+        {dayOneShow && dayOne?.map((item, index)=>{ 
+      
+          const {main, wind, dt_txt} = item
+          const day = dt_txt.split(' ')[0].split('-')[2]
+          const hour = dt_txt.split(' ')[1].slice(0,5);
+          const temp = kelvinToCelsius(main.temp);
+          const min = kelvinToCelsius(main.temp_min);
+          const max = kelvinToCelsius(main.temp_max)
+
+          return( 
+            <div className='days-container'>
+              <h2>{day}</h2>
+              <p>Hour: {hour}</p>
+              <p>Temp: {temp}  <span className='white-circle'> &#9675; </span></p>
+              <p>Min: {min}  <span className='white-circle'> &#9675; </span></p>
+              <p>Max: {max}  <span className='white-circle'> &#9675; </span></p>
+              <p>Wind: {wind.speed} km/h</p>
+            </div>
+          )
+
+        })}
+        {dayTwoShow && dayTwo?.map((item, index)=>{ 
+
+          const {main, weather, wind, dt_txt} = item
+
+          return( 
+          <div className='days-container'>
+            <h2>{dt_txt.split(' ')[0].split('-')[2]}</h2>
+            <p>Hour: {dt_txt.split(' ')[1].slice(0,5)}</p>
+            <p>Temp: {kelvinToCelsius(main.temp)}</p>
+            <p>Min: {kelvinToCelsius(main.temp_min)}</p>
+            <p>Max: {kelvinToCelsius(main.temp_max)}</p>
+            <p>Wind: {wind.speed} km/h</p>
+          </div>
+          )
+        })}
+        
+        { dayThreeShow && dayThree?.map((item, index)=>{ 
+          const {main, weather, wind, dt_txt} = item
+    
+            return( 
+            <div className='days-container'>
+              <h2>{dt_txt.split(' ')[0].split('-')[2]}</h2>
+              <p>Hour: {dt_txt.split(' ')[1].slice(0,5)}</p>
+              <p>Temp: {kelvinToCelsius(main.temp)}</p>
+              <p>Min: {kelvinToCelsius(main.temp_min)}</p>
+              <p>Max: {kelvinToCelsius(main.temp_max)}</p>
+              <p>Wind: {wind.speed} km/h</p>
+            </div>
+            )
+        })}
+        {dayFourShow && dayFour?.map((item, index)=>{ 
+          const {main, weather, wind, dt_txt} = item
+    
+            return( 
+            <div className='days-container'>
+              <h2>{dt_txt.split(' ')[0].split('-')[2]}</h2>
+              <p>Hour: {dt_txt.split(' ')[1].slice(0,5)}</p>
+              <p>Temp: {kelvinToCelsius(main.temp)}</p>
+              <p>Min: {kelvinToCelsius(main.temp_min)}</p>
+              <p>Max: {kelvinToCelsius(main.temp_max)}</p>
+              <p>Wind: {wind.speed} km/h</p>
+            </div>
+            )
+        })}
+        {dayFiveShow && dayFive?.map((item, index)=>{ 
+          
+          const {main, weather, wind, dt_txt} = item
+    
+            return( 
+            <div className='days-container'>
+              <h2>{dt_txt.split(' ')[0].split('-')[2]}</h2>
+              <p>Hour: {dt_txt.split(' ')[1].slice(0,5)}</p>
+              <p>Temp: {kelvinToCelsius(main.temp)}</p>
+              <p>Min: {kelvinToCelsius(main.temp_min)}</p>
+              <p>Max: {kelvinToCelsius(main.temp_max)}</p>
+              <p>Wind: {wind.speed} km/h</p>
+            </div>
+            )
+        })}
+        {daySixShow && daySix?.map((item, index)=>{ 
+          
+          const {main, weather, wind, dt_txt} = item
+    
+            return( 
+            <div className='days-container'>
+              <h2>{dt_txt.split(' ')[0].split('-')[2]}</h2>
+              <p>Hour: {dt_txt.split(' ')[1].slice(0,5)}</p>
+              <p>Temp: {kelvinToCelsius(main.temp)}</p>
+              <p>Min: {kelvinToCelsius(main.temp_min)}</p>
+              <p>Max: {kelvinToCelsius(main.temp_max)}</p>
+              <p>Wind: {wind.speed} km/h</p>
+            </div>
+            )
+        })}
+      </div>
+    </>
+  )
+}
+
+export default WeatherDataForFiveDays
+
+/* 
+     <div> 
+        <button onClick={()=> setDayOneShow(!dayOneShow)}>{uniqueValue[0]}</button>
+        <button onClick={()=> setDayTwoShow(!dayTwoShow)}>{uniqueValue[1]}</button>
+        <button onClick={()=> setDayThreeShow(!dayThreeShow)}>{uniqueValue[2]}</button>
+        <button onClick={()=> setDayFourShow(!dayFourShow)}>{uniqueValue[3]}</button>
+        <button onClick={()=> setDayFiveShow(!dayFiveShow)}>{uniqueValue[4]}</button>
+      </div> 
+
+ <div className='group-by-days'> 
+
+
+        {show && dayOne?.map((item, index)=>{ 
+      
+          const {main, wind, dt_txt} = item
+          const day = dt_txt.split(' ')[0].split('-')[2]
+          const hour = dt_txt.split(' ')[1].slice(0,5);
+          const temp = kelvinToCelsius(main.temp);
+          const min = kelvinToCelsius(main.temp_min);
+          const max = kelvinToCelsius(main.temp_max)
+
+          return( 
+            <div className='days-container'>
+              <h2>{day}</h2>
+              <p>Hour: {hour}</p>
+              <p>Temp: {temp}</p>
+              <p>Min: {min}</p>
+              <p>Max: {max}</p>
+              <p>Wind: {wind.speed} km/h</p>
+            </div>
+          )
+
+        })}
+        {dayTwoShow && dayTwo?.map((item, index)=>{ 
+
+          const {main, weather, wind, dt_txt} = item
+
+          return( 
+          <div className='days-container'>
+            <h2>{dt_txt.split(' ')[0].split('-')[2]}</h2>
+            <p>Hour: {dt_txt.split(' ')[1].slice(0,5)}</p>
+            <p>Temp: {kelvinToCelsius(main.temp)}</p>
+            <p>Min: {kelvinToCelsius(main.temp_min)}</p>
+            <p>Max: {kelvinToCelsius(main.temp_max)}</p>
+            <p>Wind: {wind.speed} km/h</p>
+          </div>
+          )
+        })}
+        { dayThreeShow && dayThree?.map((item, index)=>{ 
+          const {main, weather, wind, dt_txt} = item
+    
+            return( 
+            <div className='days-container'>
+              <h2>{dt_txt.split(' ')[0].split('-')[2]}</h2>
+              <p>Hour: {dt_txt.split(' ')[1].slice(0,5)}</p>
+              <p>Temp: {kelvinToCelsius(main.temp)}</p>
+              <p>Min: {kelvinToCelsius(main.temp_min)}</p>
+              <p>Max: {kelvinToCelsius(main.temp_max)}</p>
+              <p>Wind: {wind.speed} km/h</p>
+            </div>
+            )
+        })}
+        {dayFourShow && dayFour?.map((item, index)=>{ 
+          const {main, weather, wind, dt_txt} = item
+    
+            return( 
+            <div className='days-container'>
+              <h2>{dt_txt.split(' ')[0].split('-')[2]}</h2>
+              <p>Hour: {dt_txt.split(' ')[1].slice(0,5)}</p>
+              <p>Temp: {kelvinToCelsius(main.temp)}</p>
+              <p>Min: {kelvinToCelsius(main.temp_min)}</p>
+              <p>Max: {kelvinToCelsius(main.temp_max)}</p>
+              <p>Wind: {wind.speed} km/h</p>
+            </div>
+            )
+        })}
+        {dayFiveShow && dayFive?.map((item, index)=>{ 
+          
+          const {main, weather, wind, dt_txt} = item
+    
+            return( 
+            <div className='days-container'>
+              <h2>{dt_txt.split(' ')[0].split('-')[2]}</h2>
+              <p>Hour: {dt_txt.split(' ')[1].slice(0,5)}</p>
+              <p>Temp: {kelvinToCelsius(main.temp)}</p>
+              <p>Min: {kelvinToCelsius(main.temp_min)}</p>
+              <p>Max: {kelvinToCelsius(main.temp_max)}</p>
+              <p>Wind: {wind.speed} km/h</p>
+            </div>
+            )
+        })}
+      </div>
+      */

@@ -1,0 +1,127 @@
+.weather-container {
+  width: 40%;
+  height: 40vh;
+  margin: 2rem;
+  background-color: aqua;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  border-radius: 60px;
+}
+.top-part {
+  width: 30%;
+  margin: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.city {
+  display: flex;
+  padding: 10px;
+  font-size: xx-large;
+  font-weight: bold;
+  margin: 2rem;
+  justify-content: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  flex-direction: column;
+}
+
+.weather-image {
+  width: 60%;
+  height: 14vh;
+}
+
+.middle-part {
+  width: 35%;
+  display: flex;
+  margin-top: 1rem;
+  margin-right: 3rem;
+  justify-content: center;
+  align-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.middle-part-current-temp {
+  width: 65%;
+  display: inline-flex;
+  align-items: center;
+}
+
+.current-temp {
+  font-size: 100px;
+  font-weight: bold;
+  margin: 1rem;
+  padding: 2px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.current-temp-o {
+  font-size: medium;
+  font-weight: bold;
+  margin-left: -1rem;
+  margin-top: -5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.middle-part-temp {
+  margin-left: 1rem;
+  margin-bottom: 3.5rem;
+}
+
+.temperature-in-c,
+.temperature-in-f {
+  font-size: large;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.temperature-in-c:focus,
+.temperature-in-f:focus {
+  color: rgb(120, 120, 120);
+  font-weight: bolder;
+}
+
+.wheater-info {
+  font-size: x-large;
+  font-weight: bol;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.last-update {
+  font-size: small;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.bottom-part {
+  display: flex;
+  margin: 0rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.feels-like,
+.min,
+.max,
+.humidity,
+.wind {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: medium;
+  margin: 1rem;
+}
+
+.white-circle {
+  position: relative;
+  bottom: 5px;
+  right: 2px;
+}

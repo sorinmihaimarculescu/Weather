@@ -1,0 +1,8 @@
+.group-by-days {
+  display: flex;
+}
+
+.days-container {
+  margin: 1rem;
+  text-align: center;
+}
